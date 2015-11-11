@@ -5,6 +5,8 @@ WORKDIR /go/src/github.com/castillobg/example/server
 
 ADD . /go
 
+ENV SERVICE_NAME=simple
+
 RUN go install github.com/castillobg/example/server
 
 ENTRYPOINT ["server"]

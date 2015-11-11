@@ -1,11 +1,22 @@
 # Go + Docker
 An example built for the Medellin DevOps meetup.
 
-### Dependencies
+## Dependencies
 - [Docker](http://docs.docker.com/)
 - [Docker Machine](http://docs.docker.com/machine/install-machine/) *(If you're not on Linux)*
 
-### Run the example
+## Run the example
+
+* ### Run Consul:
+```sh
+docker run -it -h node -p 8500:8500 -p 8600:53/udp progrium/consul -server -bootstrap -advertise $(docker-machine ip <name of your VM>) -log-level debug
+ ```
+
+* ### Run Registrator:
+```sh
+docker run -it -v /var/run/docker.sock:/tmp/docker.sock -h $(docker-machine ip <name of your VM>) gliderlabs/registrator consul://$(docker-machine ip <name of your VM>):8500
+```
+* ### Run the Go server:
  ~~~sh
  $ docker build -t server
  $ docker run --publish 6060:8080 --rm server
