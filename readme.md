@@ -1,5 +1,6 @@
-# Go + Docker
-An example built for the Medellin DevOps meetup.
+# Consul + Docker
+### + Registrator + Nginx
+An example built for the Medellin DevOps meetup, based on [this article](http://www.maori.geek.nz/scalable_architecture_dr_con_docker_registrator_consul_nginx/)
 
 ## Dependencies
 - [Docker](http://docs.docker.com/)
@@ -7,12 +8,12 @@ An example built for the Medellin DevOps meetup.
 
 ## Run the example
 
-* ### Run Consul:
+### Run Consul:
 ```sh
 docker run -it -h node -p 8500:8500 -p 8600:53/udp progrium/consul -server -bootstrap -advertise $(docker-machine ip <name of your VM>) -log-level debug
  ```
 
-* ### Run Registrator:
+### Run Registrator:
 ```sh
 docker run -it -v /var/run/docker.sock:/tmp/docker.sock -h $(docker-machine ip <name of your VM>) gliderlabs/registrator consul://$(docker-machine ip <name of your VM>):8500
 ```
