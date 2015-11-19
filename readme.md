@@ -1,9 +1,8 @@
 # Service discovery with DRCoN
-### [Docker](https://www.docker.com/) + [Consul](https://www.consul.io)+ [Registrator](http://gliderlabs.com/registrator/latest/) + [Consul Template + Nginx]((https://github.com/grahamjenson/DR-CoN))
+### [Docker](https://www.docker.com/) + [Consul](https://www.consul.io) + [Registrator](http://gliderlabs.com/registrator/latest/) + [Consul Template + Nginx]((https://github.com/grahamjenson/DR-CoN))
 
 An example built for the Medellin DevOps meetup, based on [this
-article](http://www.maori.geek.nz/scalable_architecture_dr_con_docker_registrator_consul_nginx/)
-.
+article](http://www.maori.geek.nz/scalable_architecture_dr_con_docker_registrator_consul_nginx/).
 
 ## Dependencies
 - [Docker](http://docs.docker.com/)
@@ -14,14 +13,21 @@ article](http://www.maori.geek.nz/scalable_architecture_dr_con_docker_registrato
 
 ### Run the Consul container:
 ```sh
-$ docker run -it -h node -p 8500:8500 -p 8600:53/udp progrium/consul -server -bootstrap -advertise
-$(docker-machine ip <machine name>) -log-level debug
+$ docker run -it -h node \
+-p 8500:8500 -p 8600:53/udp \
+progrium/consul \
+-server -bootstrap \
+-advertise $(docker-machine ip <machine name>) \
+-log-level debug
  ```
 
 ### Run the Registrator container:
 ```sh
-$ docker run -it -v /var/run/docker.sock:/tmp/docker.sock -h $(docker-machine ip <machine name>)
-gliderlabs/registrator consul://$(docker-machine ip <machine name>):8500
+$ docker run -it \
+-v /var/run/docker.sock:/tmp/docker.sock \
+-h $(docker-machine ip <machine name>) \
+gliderlabs/registrator \
+consul://$(docker-machine ip <machine name>):8500
 ```
 
 ### Run DR-CoN
@@ -36,7 +42,10 @@ $ docker build -t dr-con .
 ```
 Run it:
 ```sh
-$ docker run -it -e "CONSUL=$(docker-machine env <machine name>):8500" -e "SERVICE=server" -p 80:80 dr-con
+$ docker run -it \
+-e "CONSUL=$(docker-machine ip <machine name>):8500" \
+-e "SERVICE=server" \
+-p 80:80 dr-con
 ```
 
 ### Run the Go server:
@@ -53,8 +62,9 @@ $ docker-machine ip <machine name>
 ```
 To get your virtual machine's IP. Replace "localhost" with that IP in the above URL,
 and you should be ready to go!
-Run more instances changing the mapped port (first one in ``6060:8080``), in the *Run the Go server* step. Notice that if you reload the page multiple times, the displayed IP changes. That's Consul
-Template doing its magic!
+Run more instances changing the mapped port (first one in ``6060:8080``), in the *Run the Go
+server* step. Notice that if you reload the page multiple times, the displayed IP changes. That's
+Consul Template doing its magic!
 
 You can also check how Registrator detects when a new service is run and registers it on the
 Consul server. Go to
