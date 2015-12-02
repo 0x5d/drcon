@@ -11,6 +11,10 @@ article](http://www.maori.geek.nz/scalable_architecture_dr_con_docker_registrato
 
 ## Run the example
 
+You can run each container in a separate terminal window. If you're on Linux, remember to run
+``eval $(docker-machine env <machine name>)`` before, so that window can communicate with the
+docker daemon running in your VM.
+
 ### Run the Consul container:
 ```sh
 $ docker run -it -h node \
@@ -19,7 +23,7 @@ progrium/consul \
 -server -bootstrap \
 -advertise $(docker-machine ip <machine name>) \
 -log-level debug
- ```
+```
 
 ### Run the Registrator container:
 ```sh
@@ -51,7 +55,7 @@ $ docker run -it \
 ### Run the Go server:
 ```sh
 $ docker build -t server
-$ docker run --publish 6060:8080 --rm server
+$ docker run --publish 6060:8080 server
 ```
 Go to [http://localhost:6060/Johnny](http://localhost/johnny), and say hello!
 
@@ -60,7 +64,7 @@ Then run
 ```sh
 $ docker-machine ip <machine name>
 ```
-To get your virtual machine's IP. Replace "localhost" with that IP in the above URL,
+to get your virtual machine's IP. Replace "localhost" with that IP in the above URL,
 and you should be ready to go!
 Run more instances changing the mapped port (first one in ``6060:8080``), in the *Run the Go
 server* step. Notice that if you reload the page multiple times, the displayed IP changes. That's
