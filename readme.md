@@ -1,5 +1,5 @@
 # Service discovery with DRCoN
-### [Docker](https://www.docker.com/) + [Consul](https://www.consul.io) + [Registrator](http://gliderlabs.com/registrator/latest/) + [Consul Template + Nginx]((https://github.com/grahamjenson/DR-CoN))
+### [Docker](https://www.docker.com/) + [Consul](https://www.consul.io) + [Registrator](http://gliderlabs.com/registrator/latest/) + [Consul Template + Nginx](https://github.com/grahamjenson/DR-CoN)
 
 An example built for the Medellin DevOps meetup, based on [this
 article](http://www.maori.geek.nz/scalable_architecture_dr_con_docker_registrator_consul_nginx/).
